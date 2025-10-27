@@ -1,0 +1,93 @@
+
+==============================
+USER & ACCOUNT MANAGEMENT SYSTEM
+==============================
+
+ENTITIES & RELATIONSHIPS
+------------------------
+
+1. USER
+   - UserId (PK)
+   - Name
+   - Email
+   - Password
+   - Phone
+   - UserType (Normal, BankUser)
+   - DateOfBirth
+   - Status
+   - Relationships:
+       * One-to-Many with Accounts
+       * Many-to-Many with Roles (via UserRole)
+
+2. ROLE
+   - RoleId (PK)
+   - RoleName
+   - Relationships:
+       * Many-to-Many with Users (via UserRole)
+       * Many-to-Many with Permissions (via RolePermission)
+
+3. PERMISSION
+   - PermissionId (PK)
+   - PermissionName
+   - Relationships:
+       * Many-to-Many with Roles (via RolePermission)
+
+4. USERROLE (Mapping Table)
+   - UserId (FK to User)
+   - RoleId (FK to Role)
+
+5. ROLEPERMISSION (Mapping Table)
+   - RoleId (FK to Role)
+   - PermissionId (FK to Permission)
+
+6. BANK
+   - BankId (PK)
+   - BankName
+   - Relationships:
+       * One-to-Many with Branches
+
+7. BRANCH
+   - BranchId (PK)
+   - BranchName
+   - Address
+   - BankId (FK to Bank)
+   - Relationships:
+       * One-to-Many with Accounts
+
+8. ACCOUNT
+   - AccountId (PK)
+   - AccountNumber
+   - AccountType (Saving, Current, TermDeposit)
+   - Balance
+   - Currency
+   - IsMinor (bool)
+   - IsPOA (bool)
+   - Status (Active, Closed, Frozen)
+   - UserId (FK to User)
+   - BranchId (FK to Branch)
+   - Relationships:
+       * One-to-Many with Transactions
+
+9. TRANSACTION
+   - TransactionId (PK)
+   - TransactionType (Deposit, Withdraw)
+   - Amount
+   - Date
+   - AccountId (FK to Account)
+
+RELATIONSHIPS SUMMARY
+----------------------
+- User ↔ Role : Many-to-Many (UserRole)
+- Role ↔ Permission : Many-to-Many (RolePermission)
+- Bank ↔ Branch : One-to-Many
+- Branch ↔ Account : One-to-Many
+- User ↔ Account : One-to-Many
+- Account ↔ Transaction : One-to-Many
+
+INHERITANCE
+------------
+- Account has subtypes via AccountType:
+   * SavingAccount
+   * CurrentAccount
+   * TermDepositAccount
+
