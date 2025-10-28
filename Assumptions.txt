@@ -1,0 +1,136 @@
+Each user can belong to multiple banks.
+
+Each bank has one or more branches.
+
+A branch belongs to exactly one bank.
+
+Each account is associated with one user and one branch.
+
+A Term Deposit Account is a special type of account with a fixed maturity date and interest rate.
+
+A minor cannot operate an account without a guardian or POA.
+
+Currency types are predefined (e.g., INR, USD, EUR).
+
+Transactions (deposit, withdraw, close) are logged for audit.
+
+User roles are predefined (Admin, BankUser, Customer).
+
+“LIMIT” operations imply restricted access based on role.
+
+Authentication uses basic token/session-based login.
+
+Database: SQL Server (but can run on compatible engines).
+
+Dates and money fields are stored in standard formats (ISO Date, Decimal(15,2)).
+
+Passwords are hashed before storage.
+
+Accounts and users are soft deleted for audit purposes.
+
+
+
+
+===========================================================================================
+
+General System Assumptions
+
+===========================================================================================
+
+The system serves both bank employees and customers.
+
+All API endpoints are protected by JWT-based authentication using RS256 (asymmetric RSA encryption).
+
+Each token is signed by a private key stored securely on the server.
+
+Verification of tokens uses a public key, which can be distributed to trusted services.
+
+Only authenticated and authorized users can access limited operations.
+
+Tokens are stateless — no session storage on the server.
+
+Token expiration time defaults to 60 minutes; refresh tokens may be added later.
+
+All APIs use HTTPS to ensure encrypted transmission.
+
+Database engine: SQL Server 2019 or later.
+
+Soft deletes are used for users and accounts (IsDeleted = 1).
+
+
+===========================================================================================
+Authentication Assumptions
+===========================================================================================
+
+The system uses JWT (JSON Web Token) for user authentication.
+
+Token algorithm: RS256 (RSA SHA-256).
+
+The private RSA key is securely stored in the server’s environment configuration (never in source control).
+
+The public key can be shared with downstream services (e.g., analytics or reporting) for token verification.
+
+JWT payload contains:
+
+sub (User ID)
+
+email
+
+role
+
+permissions
+
+iat (issued at)
+
+exp (expiration time)
+
+On login, a JWT is issued after user credentials are verified.
+
+If a token is expired or invalid, the API returns HTTP 401 Unauthorized.
+
+Token validation is performed at middleware level before any business logic executes.
+
+
+
+
+===========================================================================================
+Role and Authorization Assumptions
+===========================================================================================
+
+Role-Based Access Control (RBAC) determines which actions each user can perform.
+
+Each role is mapped to one or more permissions.
+
+Examples:
+
+Admin → Full access to all modules.
+
+BankUser → Can manage accounts in their branch only.
+
+Customer → Limited to personal account operations.
+
+Permissions may include:
+
+CREATE_USER, UPDATE_ACCOUNT, WITHDRAW_FUNDS, etc.
+
+Authorization checks occur after JWT verification using claims inside the token.
+
+Revoked or expired tokens are not accepted (token refresh required).
+
+
+===========================================================================================
+API and Token Behavior
+===========================================================================================
+
+
+
+| Behavior                   | Description                                       |
+| -------------------------- | ------------------------------------------------- |
+| **Algorithm**              | RS256 (asymmetric RSA key pair)                   |
+| **Token Format**           | Standard JWT (Header, Payload, Signature)         |
+| **Token Expiry**           | 60 minutes by default                             |
+| **Refresh Mechanism**      | Optional; to be implemented later                 |
+| **Error on Invalid Token** | HTTP 401 Unauthorized                             |
+| **Error on Expired Token** | HTTP 403 Forbidden                                |
+| **Revocation**             | Managed by rotating keys or blacklist table       |
+| **Storage**                | Client stores JWT in secure local/session storage |

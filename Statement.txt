@@ -1,0 +1,276 @@
+			=================================================================================
+					Problem Statement – Simple User and Account Management System
+			=================================================================================
+The goal of this project is to design and implement a User and Account Management System for a banking environment that supports multiple banks, branches, users, and account types. The system will enable users to manage banking accounts, perform limited financial operations, and provide role-based access control through authentication and authorization.
+
+===============================================================================================
+
+2. Core Objectives
+
+Manage multiple banks and branches.
+Allow users to manage multiple accounts across banks.
+Support multiple account types (Saving, Current, Term Deposit).
+Provide secure authentication and authorization for all operations.
+Enforce role-based access control (RBAC).
+Maintain transaction logs, multi-currency support, and data integrity.
+Functional Requirements
+
+
+===============================================================================================
+
+
+3. Functional Requirements
+3.1 User Management
+
+Users can be either:
+
+Normal Users (Customers) or
+
+Bank Users (Employees / Admins)
+
+Features:
+
+User registration, updates, deactivation, and profile viewing.
+Each user can have multiple roles.
+Roles determine permissions for specific operations (e.g., account creation, withdrawal).
+
+===============================================================================================
+
+3.2 Bank and Branch Management
+
+Each Bank can have multiple Branches.
+Each Branch manages accounts and transactions locally.
+Each branch must store:
+Branch name
+Address
+Linked Bank ID
+
+===============================================================================================
+
+3.3 Account Management
+
+Users can open multiple accounts across different banks.
+
+Supported account types:
+
+Saving Account
+Current Account
+Term Deposit Account
+Attributes include:
+Account number
+Currency
+Type
+Balance
+Ownership
+Associated bank and branch
+
+Accounts can:
+
+Be operated by minors or Power of Attorney (POA) holders.
+
+Exist in multiple currencies (for NRI or international users).
+
+===============================================================================================
+
+3.4 Term Deposit Accounts
+
+Fixed deposit accounts with:
+
+Maturity date
+
+Interest rate
+
+Withdrawal before maturity may incur penalties.
+
+Upon maturity, interest and principal are credited to a linked account automatically.
+
+===============================================================================================
+
+3.5 Account Operations
+Operation		Description				Access
+Deposit			Add money to an account			Limited
+Withdraw		Remove funds				Limited
+Close Account		Deactivate account			Restricted
+Operate on Account	Special operations (POA/Minor Guardian)	Limited
+Check Balance		View account balance			Limited
+
+===============================================================================================
+
+
+4. Authentication & Authorization
+
+All APIs require authentication.
+Role-based authorization is enforced for limited or restricted operations.
+Login assigns JWT/session token and sets the user’s role and permissions.
+
+Roles can include:
+
+Admin: Full privileges
+Bank User: Manage accounts within their branch
+Customer: Manage own accounts only
+
+===============================================================================================
+
+
+5. REST API Endpoints
+/user
+Method			Action			Access
+POST /user		Create user		Limited
+PUT /user/{id}		Update user		Limited
+DELETE /user/{id}	Deactivate user		Limited
+GET /user		View all users		Unrestricted
+
+/accounts
+Method			Action			Access
+POST /accounts		Create new account	Limited
+PUT /accounts/{id}	Update account details	Limited
+DELETE /accounts/{id}	Close account		Limited
+GET /accounts		View account(s)		Limited
+
+/banks/accounts/user
+
+Retrieve all user accounts grouped by bank.
+
+/login
+
+Authenticate user and assign role-based access token.
+
+===============================================================================================
+
+6. Non-Functional Requirements
+
+Category	Requirement
+Security	All passwords must be hashed; APIs must use token-based authentication.
+Scalability	Support multiple banks, thousands of users, and large transaction volumes.
+Data Integrity	Use foreign keys, constraints, and cascading rules.
+Performance	Ensure fast query execution with proper indexing.
+Audit & Logging	Log every transaction with timestamps and user context.
+Portability	SQL Server compatible; adaptable to PostgreSQL/MySQL.
+Extensibility	Future-ready for adding loans, cards, or investments modules.
+Compliance	Adhere to financial data regulations (e.g., GDPR).
+
+===============================================================================================
+
+
+7. Expected Deliverables
+
+Database Schema (DDL.sql) – all entities, relationships, and constraints.
+
+Data Migration – initial dataset for banks, users, accounts, and roles.
+
+Documentation – includes problem statement, assumptions, ER diagram, and API reference.
+
+REST API Implementation – fully authenticated endpoints with role-based control.
+
+===============================================================================================
+
+
+8. Success Criteria
+
+Database schema executes successfully in SQL Server.
+
+CRUD operations for users, banks, and accounts function correctly.
+
+Authentication and authorization perform as expected.
+
+Referential integrity and role-based access verified through test data.
+
+===============================================================================================
+
+
+9. System Architecture
+9.1 Layered Architecture
+
+The system follows a 3-tier architecture:
+
+Presentation Layer ( API Layer)
+
+REST API endpoints handle requests from users or client apps.
+
+Authentication and authorization middleware enforce security.
+
+Application Layer (Business Logic)
+
+Contains business rules for account operations, deposits, withdrawals, etc.
+
+Handles validation, transaction processing, and role checks.
+
+Data Layer (Database)
+
+Implements normalized schema with relationships between users, banks, and accounts.
+
+Uses SQL Server with primary/foreign keys for consistency.
+
+===============================================================================================
+
+
+9.2 System Flow
+
+User → /login → Auth Service → Role Assignment  
+↓  
+Authorized API Call → Business Logic Layer → Database → Response 
+
+===============================================================================================
+ 
+
+9.3 Data Entities Overview
+
+User: Stores personal information, authentication details, and minor/POA info.
+
+Role & Permission: Manage authorization scope for each user.
+
+Bank & Branch: Define the hierarchical structure for accounts.
+
+Account: Core financial entity for all transactions.
+
+Term Deposit: Specialized account extending Account.
+
+Transaction: Logs all deposit, withdrawal, and balance operations.
+
+
+===============================================================================================
+
+
+10. Entity-Relationship (ER) Diagram Description
+
+The system’s ER model connects all core entities through foreign key relationships.
+
+Relationships:
+
+Bank → Branch (1-to-Many)
+
+A bank can have multiple branches.
+
+Branch → Account (1-to-Many)
+
+Each branch manages multiple accounts.
+
+User → Account (1-to-Many)
+
+A user can have multiple accounts across branches/banks.
+
+Account → Term Deposit (1-to-1)
+
+A term deposit is an extension of an account.
+
+User → Role → Permission (Many-to-Many via mapping tables)
+
+Supports flexible access management.
+
+Account → Transaction (1-to-Many)
+
+Each account can have multiple transactions.
+
+Currency → Account (1-to-Many)
+
+Accounts are tied to a single currency code.
+
+ER Summary:
+
+User ---< Account >--- Branch ---< Bank
+   |           |
+   |           >---< Transaction
+   |
+   >---< Role >---< Permission
+Account ---1:1--- TermDeposit
+Currency ---< Account
