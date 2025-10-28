@@ -1,4 +1,20 @@
 ------------------------------------------------------------
+-- DROP and CREATE DATABASE: training
+------------------------------------------------------------
+IF EXISTS (SELECT * FROM sys.databases WHERE name = 'training')
+BEGIN
+    ALTER DATABASE training SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE training;
+END;
+GO
+
+CREATE DATABASE training;
+GO
+
+USE training;
+GO
+
+------------------------------------------------------------
 -- Create schema: training
 ------------------------------------------------------------
 IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'training')
