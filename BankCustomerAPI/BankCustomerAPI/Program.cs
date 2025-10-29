@@ -103,7 +103,8 @@ if (app.Environment.IsDevelopment())
 app.MapControllers();
 
 
-// -------------------- Runtime Seeding --------------------
+// -------------------- Runtime Seeding (COMMENTED OUT) --------------------
+/*
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<TrainingDbContext>();
@@ -161,5 +162,6 @@ using (var scope = app.Services.CreateScope())
         Console.WriteLine("✅ Default users seeded successfully.");
     }
 }
+*/
 
 app.Run();
