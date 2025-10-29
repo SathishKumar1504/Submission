@@ -1,15 +1,110 @@
 [
   {
-    "ContainingType": "BankCustomerAPI.Controllers.LoginController",
+    "ContainingType": "BankCustomerAPI.Controllers.AuthController",
     "Method": "Login",
-    "RelativePath": "api/Login",
+    "RelativePath": "bankemployee/login",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "request",
-        "Type": "BankCustomerAPI.Controllers.LoginController\u002BLoginRequest",
+        "Type": "BankCustomerAPI.Controllers.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BankCustomerAPI.Controllers.BankEmployeeController",
+    "Method": "GetAllEmployees",
+    "RelativePath": "bankemployee/manage",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BankCustomerAPI.Controllers.BankEmployeeController",
+    "Method": "AddEmployee",
+    "RelativePath": "bankemployee/manage",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "employee",
+        "Type": "BankCustomerAPI.Entities.Employee",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BankCustomerAPI.Controllers.BankEmployeeController",
+    "Method": "GetEmployeeById",
+    "RelativePath": "bankemployee/manage/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BankCustomerAPI.Controllers.BankEmployeeController",
+    "Method": "UpdateEmployee",
+    "RelativePath": "bankemployee/manage/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updatedEmployee",
+        "Type": "BankCustomerAPI.Entities.Employee",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BankCustomerAPI.Controllers.BankEmployeeController",
+    "Method": "DeleteEmployee",
+    "RelativePath": "bankemployee/manage/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BankCustomerAPI.Controllers.AuthController",
+    "Method": "Register",
+    "RelativePath": "bankemployee/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "BankCustomerAPI.Entities.User",
         "IsRequired": true
       }
     ],

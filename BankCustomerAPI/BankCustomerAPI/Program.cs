@@ -1,72 +1,102 @@
 ﻿using BankCustomerAPI.Data;
+using BankCustomerAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ====================================================
-// 1️⃣ Configure Services
-// ====================================================
-
-// --- Database (SQL Server) ---
+// -------------------- Database --------------------
 builder.Services.AddDbContext<TrainingDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// --- JWT Authentication (Temporarily Disabled for Migration) ---
-// ---------------------------------------------------------------
-// Commented out so EF tools (dotnet ef database update) won't fail
-// You can uncomment this later when you add JWT support again
+// -------------------- JWT Setup --------------------
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
-/*
-var jwtSection = builder.Configuration.GetSection("Jwt");
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]);
 
-// Build full path from project root instead of bin folder
-var publicKeyPath = Path.Combine(Directory.GetCurrentDirectory(), jwtSection.GetValue<string>("PublicKeyPath") ?? string.Empty);
-
-Console.WriteLine($"Looking for public key at: {publicKeyPath}");
-
-if (!File.Exists(publicKeyPath))
+builder.Services.AddAuthentication(options =>
 {
-    throw new FileNotFoundException($"Public key not found: {publicKeyPath}");
-}
-
-// Load the PEM key content correctly
-var publicKeyText = File.ReadAllText(publicKeyPath);
-using var rsa = RSA.Create();
-rsa.ImportFromPem(publicKeyText.AsSpan());
-var key = new RsaSecurityKey(rsa);
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
     {
-        options.TokenValidationParameters = new TokenValidationParameters
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(key)
+    };
+});
+
+// -------------------- Controllers --------------------
+builder.Services.AddControllers().AddNewtonsoftJson();
+
+// -------------------- Swagger Setup with JWT --------------------
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Bank Customer API", Version = "v1" });
+
+    // JWT Auth Setup in Swagger UI 🔒
+    var securitySchema = new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Description = "Enter 'Bearer {your JWT token}'",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        Reference = new OpenApiReference
         {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSection["Issuer"],
-            ValidAudience = jwtSection["Audience"],
-            IssuerSigningKey = key
-        };
+            Type = ReferenceType.SecurityScheme,
+            Id = "Bearer"
+        }
+    };
+
+    c.AddSecurityDefinition("Bearer", securitySchema);
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            securitySchema, new[] { "Bearer" }
+        }
     });
-*/
-
-// --- Controllers ---
-builder.Services.AddControllers();
-
-// ====================================================
-// 2️⃣ Build and Configure App
-// ====================================================
+});
 
 var app = builder.Build();
 
+// -------------------- Database Seeder --------------------
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<TrainingDbContext>();
+    BankCustomerAPI.Data.DbSeeder.Seed(context);
+}
+
+// -------------------- Middleware --------------------
 app.UseHttpsRedirection();
 
-// app.UseAuthentication(); // 👈 Uncomment later when JWT is re-enabled
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bank Customer API v1");
+        c.RoutePrefix = "swagger"; // open at /swagger
+    });
+}
 
+app.MapControllers();
 app.Run();

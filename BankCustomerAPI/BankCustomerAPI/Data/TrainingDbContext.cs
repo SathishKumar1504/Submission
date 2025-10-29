@@ -1,5 +1,9 @@
 ﻿using BankCustomerAPI.Entities;
+//using BankCustomerAPI.Helpers;
+using BankCustomerAPI.Services;
+
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace BankCustomerAPI.Data
 {
@@ -22,7 +26,7 @@ namespace BankCustomerAPI.Data
         // ==========================
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Branch> Branches { get; set; }
-        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Employee> Employees { get; set; }   // ✅ from Entities folder
 
         // ==========================
         // 🔹 Account Entities
@@ -67,7 +71,6 @@ namespace BankCustomerAPI.Data
                 .HasForeignKey(td => td.LinkedAccountId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            // Clarify MinorGuardian relationships
             modelBuilder.Entity<MinorGuardian>()
                 .HasOne(mg => mg.MinorUser)
                 .WithMany()
@@ -81,35 +84,92 @@ namespace BankCustomerAPI.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             // ==========================
-// 🔸 Decimal Precision Configurations
-// ==========================
-modelBuilder.Entity<Account>()
-    .Property(a => a.Balance)
-    .HasPrecision(18, 2);
+            // 🔸 Decimal Precision Configurations
+            // ==========================
+            modelBuilder.Entity<Account>()
+                .Property(a => a.Balance)
+                .HasPrecision(18, 2);
 
-modelBuilder.Entity<Employee>()
-    .Property(e => e.Salary)
-    .HasPrecision(18, 2);
+            modelBuilder.Entity<Employee>()
+                .Property(e => e.Salary)
+                .HasPrecision(18, 2);
 
-modelBuilder.Entity<TermDeposit>()
-    .Property(td => td.PrincipalAmount)
-    .HasPrecision(18, 2);
+            modelBuilder.Entity<TermDeposit>()
+                .Property(td => td.PrincipalAmount)
+                .HasPrecision(18, 2);
 
-modelBuilder.Entity<TermDeposit>()
-    .Property(td => td.InterestRate)
-    .HasPrecision(5, 4);
+            modelBuilder.Entity<TermDeposit>()
+                .Property(td => td.InterestRate)
+                .HasPrecision(5, 4);
 
-modelBuilder.Entity<Transaction>()
-    .Property(t => t.Amount)
-    .HasPrecision(18, 2);
-
+            modelBuilder.Entity<Transaction>()
+                .Property(t => t.Amount)
+                .HasPrecision(18, 2);
 
             // ==========================
             // 🔸 Default Schema
             // ==========================
             modelBuilder.HasDefaultSchema("training");
-            //modelBuilder.HasDefaultSchema("dbo");
 
+            // ==========================
+            // 🔹 Seed Data
+            // ==========================
+
+            // Roles
+            modelBuilder.Entity<Role>().HasData(
+                new Role { RoleId = 1, RoleName = "Admin", Description = "System administrator" },
+                new Role { RoleId = 2, RoleName = "Manager", Description = "Bank manager" },
+                new Role { RoleId = 3, RoleName = "Cashier", Description = "Handles transactions" },
+                new Role { RoleId = 4, RoleName = "Customer", Description = "Bank customer" }
+            );
+
+            // Users (with hashed passwords)
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    UserId = 1,
+                    Username = "admin",
+                    Email = "admin@bank.com",
+                    PasswordHash = PasswordHasher.HashPassword("Admin@123"),
+                    Status = "active",
+                    CreatedAt = DateTime.Now
+                },
+                new User
+                {
+                    UserId = 2,
+                    Username = "manager",
+                    Email = "manager@bank.com",
+                    PasswordHash = PasswordHasher.HashPassword("Manager@123"),
+                    Status = "active",
+                    CreatedAt = DateTime.Now
+                },
+                new User
+                {
+                    UserId = 3,
+                    Username = "cashier",
+                    Email = "cashier@bank.com",
+                    PasswordHash = PasswordHasher.HashPassword("Cashier@123"),
+                    Status = "active",
+                    CreatedAt = DateTime.Now
+                },
+                new User
+                {
+                    UserId = 4,
+                    Username = "customer",
+                    Email = "customer@bank.com",
+                    PasswordHash = PasswordHasher.HashPassword("Customer@123"),
+                    Status = "active",
+                    CreatedAt = DateTime.Now
+                }
+            );
+
+            // UserRoles (link users to roles)
+            modelBuilder.Entity<UserRole>().HasData(
+                new UserRole { UserId = 1, RoleId = 1 },
+                new UserRole { UserId = 2, RoleId = 2 },
+                new UserRole { UserId = 3, RoleId = 3 },
+                new UserRole { UserId = 4, RoleId = 4 }
+            );
         }
     }
 }
