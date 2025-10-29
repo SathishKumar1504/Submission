@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace BankCustomerAPI.Migrations
 {
     /// <inheritdoc />
@@ -385,42 +383,6 @@ namespace BankCustomerAPI.Migrations
                         principalSchema: "training",
                         principalTable: "employee",
                         principalColumn: "employeeid");
-                });
-
-            migrationBuilder.InsertData(
-                schema: "training",
-                table: "Role",
-                columns: new[] { "RoleId", "Description", "RoleName" },
-                values: new object[,]
-                {
-                    { 1, "System administrator", "Admin" },
-                    { 2, "Bank manager", "Manager" },
-                    { 3, "Bank employee", "Employee" },
-                    { 4, "Bank customer", "Customer" }
-                });
-
-            migrationBuilder.InsertData(
-                schema: "training",
-                table: "User",
-                columns: new[] { "UserId", "CreatedAt", "DateOfBirth", "DeletedAt", "Email", "PasswordHash", "Phone", "Status", "UpdatedAt", "UserType", "Username" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "admin@bank.com", "fXhWj2qkHZH4zUO6R8C5DJV8bErAAHjZClJrr5MFkds=", "9000000001", "active", null, "normal", "Admin User" },
-                    { 2, new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "manager@bank.com", "4R2OZzj3rA7SKtkE7CqMiqQzqM5aS+R5+tdX59CyI/A=", "9000000002", "active", null, "normal", "Manager User" },
-                    { 3, new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "employee@bank.com", "1zG9U5RJXZb2Q9eAV+y2B9IpcF3i0L2EDqxU53sE3wo=", "9000000003", "active", null, "normal", "Employee User" },
-                    { 4, new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "customer@bank.com", "jM2Dxke9QvVMB6HBIhH7jrqQlbG2AxEo8A6RCVYjW8E=", "9000000004", "active", null, "normal", "Customer User" }
-                });
-
-            migrationBuilder.InsertData(
-                schema: "training",
-                table: "UserRole",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[,]
-                {
-                    { 1, 1 },
-                    { 2, 2 },
-                    { 3, 3 },
-                    { 4, 4 }
                 });
 
             migrationBuilder.CreateIndex(

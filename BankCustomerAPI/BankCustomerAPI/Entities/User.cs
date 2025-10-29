@@ -12,7 +12,8 @@ namespace BankCustomerAPI.Entities
         public string PasswordHash { get; set; } = string.Empty;
 
         public string? Phone { get; set; }
-        public string UserType { get; set; } = "normal";
+        //public string UserType { get; set; } = "normal";
+        public string UserType { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string Status { get; set; } = "active";
 

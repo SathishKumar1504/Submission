@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BankCustomerAPI.Migrations
 {
     [DbContext(typeof(TrainingDbContext))]
-    [Migration("20251029094728_InitialCreate")]
+    [Migration("20251029105924_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -309,32 +309,6 @@ namespace BankCustomerAPI.Migrations
                     b.HasKey("RoleId");
 
                     b.ToTable("Role", "training");
-
-                    b.HasData(
-                        new
-                        {
-                            RoleId = 1,
-                            Description = "System administrator",
-                            RoleName = "Admin"
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            Description = "Bank manager",
-                            RoleName = "Manager"
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            Description = "Bank employee",
-                            RoleName = "Employee"
-                        },
-                        new
-                        {
-                            RoleId = 4,
-                            Description = "Bank customer",
-                            RoleName = "Customer"
-                        });
                 });
 
             modelBuilder.Entity("BankCustomerAPI.Entities.RolePermission", b =>
@@ -499,52 +473,6 @@ namespace BankCustomerAPI.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("User", "training");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Email = "admin@bank.com",
-                            PasswordHash = "fXhWj2qkHZH4zUO6R8C5DJV8bErAAHjZClJrr5MFkds=",
-                            Phone = "9000000001",
-                            Status = "active",
-                            UserType = "normal",
-                            Username = "Admin User"
-                        },
-                        new
-                        {
-                            UserId = 2,
-                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Email = "manager@bank.com",
-                            PasswordHash = "4R2OZzj3rA7SKtkE7CqMiqQzqM5aS+R5+tdX59CyI/A=",
-                            Phone = "9000000002",
-                            Status = "active",
-                            UserType = "normal",
-                            Username = "Manager User"
-                        },
-                        new
-                        {
-                            UserId = 3,
-                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Email = "employee@bank.com",
-                            PasswordHash = "1zG9U5RJXZb2Q9eAV+y2B9IpcF3i0L2EDqxU53sE3wo=",
-                            Phone = "9000000003",
-                            Status = "active",
-                            UserType = "normal",
-                            Username = "Employee User"
-                        },
-                        new
-                        {
-                            UserId = 4,
-                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Email = "customer@bank.com",
-                            PasswordHash = "jM2Dxke9QvVMB6HBIhH7jrqQlbG2AxEo8A6RCVYjW8E=",
-                            Phone = "9000000004",
-                            Status = "active",
-                            UserType = "normal",
-                            Username = "Customer User"
-                        });
                 });
 
             modelBuilder.Entity("BankCustomerAPI.Entities.UserRole", b =>
@@ -560,28 +488,6 @@ namespace BankCustomerAPI.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRole", "training");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            UserId = 2,
-                            RoleId = 2
-                        },
-                        new
-                        {
-                            UserId = 3,
-                            RoleId = 3
-                        },
-                        new
-                        {
-                            UserId = 4,
-                            RoleId = 4
-                        });
                 });
 
             modelBuilder.Entity("BankCustomerAPI.Entities.Account", b =>
