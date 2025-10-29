@@ -514,6 +514,10 @@
             "type": "string",
             "nullable": true
           },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
           "userRoles": {
             "type": "array",
             "items": {
@@ -671,7 +675,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "name": {
+          "username": {
             "type": "string",
             "nullable": true
           },
@@ -679,7 +683,7 @@
             "type": "string",
             "nullable": true
           },
-          "password": {
+          "passwordHash": {
             "type": "string",
             "nullable": true
           },
@@ -700,16 +704,16 @@
             "type": "string",
             "nullable": true
           },
-          "created_At": {
+          "createdAt": {
             "type": "string",
             "format": "date-time"
           },
-          "updated_At": {
+          "updatedAt": {
             "type": "string",
             "format": "date-time",
             "nullable": true
           },
-          "deleted_At": {
+          "deletedAt": {
             "type": "string",
             "format": "date-time",
             "nullable": true

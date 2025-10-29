@@ -296,6 +296,9 @@ namespace BankCustomerAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("RoleName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -303,6 +306,32 @@ namespace BankCustomerAPI.Migrations
                     b.HasKey("RoleId");
 
                     b.ToTable("Role", "training");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleId = 1,
+                            Description = "System administrator",
+                            RoleName = "Admin"
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            Description = "Bank manager",
+                            RoleName = "Manager"
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            Description = "Bank employee",
+                            RoleName = "Employee"
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            Description = "Bank customer",
+                            RoleName = "Customer"
+                        });
                 });
 
             modelBuilder.Entity("BankCustomerAPI.Entities.RolePermission", b =>
@@ -429,24 +458,20 @@ namespace BankCustomerAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
-                    b.Property<DateTime>("Created_At")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("Deleted_At")
+                    b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -457,16 +482,66 @@ namespace BankCustomerAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("Updated_At")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("UserId");
 
                     b.ToTable("User", "training");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "admin@bank.com",
+                            PasswordHash = "JAvlGPq9JyTdtvBO6x2llnRI1+gxwIyPqCKAn3THIKk=",
+                            Phone = "9000000001",
+                            Status = "active",
+                            UserType = "normal",
+                            Username = "Admin User"
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "manager@bank.com",
+                            PasswordHash = "hmSFeWz6jXwM9xEWQCBbgwdkM1R1d1EdgfgDCumezqU=",
+                            Phone = "9000000002",
+                            Status = "active",
+                            UserType = "normal",
+                            Username = "Manager User"
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "employee@bank.com",
+                            PasswordHash = "a5PMukFKwdCuHnfz+sVgx0imcB7WlGc1pJ1GM1FRjhY=",
+                            Phone = "9000000003",
+                            Status = "active",
+                            UserType = "normal",
+                            Username = "Employee User"
+                        },
+                        new
+                        {
+                            UserId = 4,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "customer@bank.com",
+                            PasswordHash = "sEHArrNbsPpKpmjKWpILWQGW/a+aAOuFLJt/TRI8xtY=",
+                            Phone = "9000000004",
+                            Status = "active",
+                            UserType = "normal",
+                            Username = "Customer User"
+                        });
                 });
 
             modelBuilder.Entity("BankCustomerAPI.Entities.UserRole", b =>
@@ -482,6 +557,28 @@ namespace BankCustomerAPI.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRole", "training");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            RoleId = 3
+                        },
+                        new
+                        {
+                            UserId = 4,
+                            RoleId = 4
+                        });
                 });
 
             modelBuilder.Entity("BankCustomerAPI.Entities.Account", b =>

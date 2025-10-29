@@ -19,7 +19,17 @@ namespace BankCustomerAPI.Services
         public string GenerateToken(string username, string role)
         {
             var jwtSettings = _configuration.GetSection("JwtSettings");
-            var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]);
+
+            // ✅ Validate and safely extract values from configuration
+            var keyString = jwtSettings["Key"]
+                ?? throw new InvalidOperationException("JWT Key is missing in configuration.");
+            var issuer = jwtSettings["Issuer"]
+                ?? throw new InvalidOperationException("JWT Issuer is missing in configuration.");
+            var audience = jwtSettings["Audience"]
+                ?? throw new InvalidOperationException("JWT Audience is missing in configuration.");
+
+            // ✅ Safe conversion to bytes (no null warning)
+            var key = Encoding.UTF8.GetBytes(keyString);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -29,8 +39,8 @@ namespace BankCustomerAPI.Services
                     new Claim(ClaimTypes.Role, role)
                 }),
                 Expires = DateTime.UtcNow.AddHours(1),
-                Issuer = jwtSettings["Issuer"],
-                Audience = jwtSettings["Audience"],
+                Issuer = issuer,
+                Audience = audience,
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature)

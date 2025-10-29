@@ -5,7 +5,7 @@
 namespace BankCustomerAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedInitialData : Migration
+    public partial class SyncExistingDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

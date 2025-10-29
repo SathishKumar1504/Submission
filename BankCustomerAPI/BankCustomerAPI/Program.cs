@@ -16,7 +16,17 @@ builder.Services.AddDbContext<TrainingDbContext>(options =>
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]);
+
+// ✅ Validate and safely extract values from configuration
+var keyString = jwtSettings["Key"]
+    ?? throw new InvalidOperationException("JWT Key is missing in configuration.");
+var issuer = jwtSettings["Issuer"]
+    ?? throw new InvalidOperationException("JWT Issuer is missing in configuration.");
+var audience = jwtSettings["Audience"]
+    ?? throw new InvalidOperationException("JWT Audience is missing in configuration.");
+
+// ✅ Convert to bytes safely (no null warning)
+var key = Encoding.UTF8.GetBytes(keyString);
 
 builder.Services.AddAuthentication(options =>
 {
@@ -33,8 +43,8 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = jwtSettings["Issuer"],
-        ValidAudience = jwtSettings["Audience"],
+        ValidIssuer = issuer,
+        ValidAudience = audience,
         IssuerSigningKey = new SymmetricSecurityKey(key)
     };
 });
@@ -45,7 +55,11 @@ builder.Services.AddControllers().AddNewtonsoftJson();
 // -------------------- Swagger Setup with JWT --------------------
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Bank Customer API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Bank Customer API",
+        Version = "v1"
+    });
 
     // JWT Auth Setup in Swagger UI 🔒
     var securitySchema = new OpenApiSecurityScheme
@@ -75,13 +89,6 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// -------------------- Database Seeder --------------------
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<TrainingDbContext>();
-    BankCustomerAPI.Data.DbSeeder.Seed(context);
-}
-
 // -------------------- Middleware --------------------
 app.UseHttpsRedirection();
 
@@ -99,4 +106,5 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapControllers();
+
 app.Run();

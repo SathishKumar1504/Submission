@@ -179,3 +179,4 @@ D:\C# Training\Project\Submission\BankCustomerAPI\BankCustomerAPI\obj\Debug\net9
 D:\C# Training\Project\Submission\BankCustomerAPI\BankCustomerAPI\obj\Debug\net9.0\BankCustomerAPI.pdb
 D:\C# Training\Project\Submission\BankCustomerAPI\BankCustomerAPI\obj\Debug\net9.0\BankCustomerAPI.genruntimeconfig.cache
 D:\C# Training\Project\Submission\BankCustomerAPI\BankCustomerAPI\obj\Debug\net9.0\ref\BankCustomerAPI.dll
+D:\C# Training\Project\Submission\BankCustomerAPI\BankCustomerAPI\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

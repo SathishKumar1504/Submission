@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace BankCustomerAPI.Migrations
 {
     /// <inheritdoc />
@@ -50,7 +52,8 @@ namespace BankCustomerAPI.Migrations
                 {
                     RoleId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -64,16 +67,16 @@ namespace BankCustomerAPI.Migrations
                 {
                     UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Created_At = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Updated_At = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Deleted_At = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -230,43 +233,43 @@ namespace BankCustomerAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Employee",
+                name: "employee",
                 schema: "training",
                 columns: table => new
                 {
-                    EmployeeId = table.Column<int>(type: "int", nullable: false)
+                    employeeid = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: true),
-                    BranchId = table.Column<int>(type: "int", nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: true),
-                    EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Designation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Salary = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: true),
-                    HireDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    TerminatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    userid = table.Column<int>(type: "int", nullable: true),
+                    branchid = table.Column<int>(type: "int", nullable: false),
+                    roleid = table.Column<int>(type: "int", nullable: true),
+                    employeename = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    designation = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    salary = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: true),
+                    hiredate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    createdat = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    updatedat = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    terminatedat = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Employee", x => x.EmployeeId);
+                    table.PrimaryKey("PK_employee", x => x.employeeid);
                     table.ForeignKey(
-                        name: "FK_Employee_Branch_BranchId",
-                        column: x => x.BranchId,
+                        name: "FK_employee_Branch_branchid",
+                        column: x => x.branchid,
                         principalSchema: "training",
                         principalTable: "Branch",
                         principalColumn: "BranchId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Employee_Role_RoleId",
-                        column: x => x.RoleId,
+                        name: "FK_employee_Role_roleid",
+                        column: x => x.roleid,
                         principalSchema: "training",
                         principalTable: "Role",
                         principalColumn: "RoleId");
                     table.ForeignKey(
-                        name: "FK_Employee_User_UserId",
-                        column: x => x.UserId,
+                        name: "FK_employee_User_userid",
+                        column: x => x.userid,
                         principalSchema: "training",
                         principalTable: "User",
                         principalColumn: "UserId");
@@ -371,17 +374,53 @@ namespace BankCustomerAPI.Migrations
                         principalColumn: "AccountId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Transaction_Employee_ApprovedByEmployeeEmployeeId",
-                        column: x => x.ApprovedByEmployeeEmployeeId,
-                        principalSchema: "training",
-                        principalTable: "Employee",
-                        principalColumn: "EmployeeId");
-                    table.ForeignKey(
                         name: "FK_Transaction_User_PerformedByUserUserId",
                         column: x => x.PerformedByUserUserId,
                         principalSchema: "training",
                         principalTable: "User",
                         principalColumn: "UserId");
+                    table.ForeignKey(
+                        name: "FK_Transaction_employee_ApprovedByEmployeeEmployeeId",
+                        column: x => x.ApprovedByEmployeeEmployeeId,
+                        principalSchema: "training",
+                        principalTable: "employee",
+                        principalColumn: "employeeid");
+                });
+
+            migrationBuilder.InsertData(
+                schema: "training",
+                table: "Role",
+                columns: new[] { "RoleId", "Description", "RoleName" },
+                values: new object[,]
+                {
+                    { 1, "System administrator", "Admin" },
+                    { 2, "Bank manager", "Manager" },
+                    { 3, "Bank employee", "Employee" },
+                    { 4, "Bank customer", "Customer" }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "training",
+                table: "User",
+                columns: new[] { "UserId", "CreatedAt", "DateOfBirth", "DeletedAt", "Email", "PasswordHash", "Phone", "Status", "UpdatedAt", "UserType", "Username" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "admin@bank.com", "fXhWj2qkHZH4zUO6R8C5DJV8bErAAHjZClJrr5MFkds=", "9000000001", "active", null, "normal", "Admin User" },
+                    { 2, new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "manager@bank.com", "4R2OZzj3rA7SKtkE7CqMiqQzqM5aS+R5+tdX59CyI/A=", "9000000002", "active", null, "normal", "Manager User" },
+                    { 3, new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "employee@bank.com", "1zG9U5RJXZb2Q9eAV+y2B9IpcF3i0L2EDqxU53sE3wo=", "9000000003", "active", null, "normal", "Employee User" },
+                    { 4, new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "customer@bank.com", "jM2Dxke9QvVMB6HBIhH7jrqQlbG2AxEo8A6RCVYjW8E=", "9000000004", "active", null, "normal", "Customer User" }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "training",
+                table: "UserRole",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 2 },
+                    { 3, 3 },
+                    { 4, 4 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -403,22 +442,22 @@ namespace BankCustomerAPI.Migrations
                 column: "BankId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employee_BranchId",
+                name: "IX_employee_branchid",
                 schema: "training",
-                table: "Employee",
-                column: "BranchId");
+                table: "employee",
+                column: "branchid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employee_RoleId",
+                name: "IX_employee_roleid",
                 schema: "training",
-                table: "Employee",
-                column: "RoleId");
+                table: "employee",
+                column: "roleid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employee_UserId",
+                name: "IX_employee_userid",
                 schema: "training",
-                table: "Employee",
-                column: "UserId");
+                table: "employee",
+                column: "userid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MinorGuardian_GuardianUserId",
@@ -518,7 +557,7 @@ namespace BankCustomerAPI.Migrations
                 schema: "training");
 
             migrationBuilder.DropTable(
-                name: "Employee",
+                name: "employee",
                 schema: "training");
 
             migrationBuilder.DropTable(
