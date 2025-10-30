@@ -17,6 +17,7 @@ namespace BankCustomerAPI.Data
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<RolePermission> RolePermissions { get; set; }
 
+
         // ==========================
         // 🔹 Bank Entities
         // ==========================

@@ -9,6 +9,7 @@
 *.userosscache
 *.sln.docstates
 .vs/
+.v2
 *.exe
 *.dll 
 

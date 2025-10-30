@@ -1,0 +1,48 @@
+/* head{
+    background-color: antiquewhite;
+}
+body{
+    background-color: azure;
+}
+div{
+    
+    color: blue;
+}
+
+p{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color:rgb(255, 0, 21);
+}
+ */
+/* 
+ box{
+    background-color: aliceblue;
+    
+ } */
+ body{
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: rgb(153, 155, 234);
+ }
+ .card{
+    background-color: aliceblue;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px;
+    text-align: center;
+ }
+ /* div {
+    align:center;
+    align-items: center;
+    background-color: aliceblue;
+  width: 300px;
+  border: 15px solid rgb(14, 78, 14);
+  padding: 50px;
+  margin: 20px;
+} */
+
+bod
