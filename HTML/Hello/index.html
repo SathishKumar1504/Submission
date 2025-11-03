@@ -1,100 +1,168 @@
 <!DOCTYPE html>
-<html>
-<!-- Head Section Starts-->
-
+<html lang="en">
 <head>
-    <title>My Web Page😊 By SK</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Web Page 😊 By SK</title>
 
+  <!-- Fonts & CSS -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+  <div class="tab-bar">
+    <button class="tab-btn" data-target="header">🏠 Home</button>
+    <button class="tab-btn" data-target="#about">👤 About</button>
+    <button class="tab-btn" data-target=".tech-container">💻 Skills</button>
+    <button class="tab-btn" data-target=".media">🎥 Media</button>
+    <button class="tab-btn" data-target=".gallery">🖼️ Gallery</button>
+    <button class="tab-btn" data-target="#contact">📞 Contact</button>
+  </div>
 </head>
-<!-- Head Section Ends-->
-<!-- Body Section Starts-->
 
 <body>
-    <!-- Header Section Starts-->
-    <header>
-        <!--Image Here-->
 
-        <h3>Logo</h3>
-        <!--Message-->
-        <h1> Hii! This is<span> Sathish Kumar M</span></h1>
-        <!--Button-->
-        <a href="#contact" class="button">
-            Hello Dude!😊</a>
+  <!-- ================= HEADER ================= -->
+  <header>
+    <!-- ================= TAB BAR ================= -->
+  
 
-    </header>
-    <!-- Header Section ENds-->
-    <section class="about">
-        <h2>About me</h2>
-        <p> I am Sathish Kumar Currently Working in CSPL as a Software developer</p>
-    </section>
+    <h3>Logo</h3>
+    <h1>Hii! This is <span>Sathish Kumar M</span></h1>
+    <a href="#contact" class="button">Hello Dude! 😊</a>
+  </header>
 
-    <!--Contact-->
-    <div id="contact">
-        <h2> Impressed with my work ?</h2>
-        <form method="post" action="server/api">
-            <input type="text" name="First Name" placeholder="Enter your First Name">
-            <input type="text" name="Last Name" placeholder="Enter your Last Name">
-            
+  <!-- ================= ABOUT ================= -->
+  <section class="about" id="about">
+    <h2><span>A</span>bout Me</h2>
+    <p>I am Sathish Kumar, currently working in CSPL as a Software Developer.</p>
+  </section>
 
-            <textarea placeholder="Enter Your Message"></textarea>
-            <br>
-            <button type="submit"> Send</button>
-        </form>
+  <!-- ================= SKILLS GRID ================= -->
+  <div class="wrapper">
+    <div class="actualcontent">Java
+      <ul>
+        <li>Spring Boot</li>
+        <li>J2EE</li>
+        <li>Hibernate</li>
+        <li>Core Java</li>
+      </ul>
     </div>
-    <!-- End of Contact-->
-    <!-- Show off my work using pictures-->
-    <div class="gallery">
-        <h2> Here are Sample of My Work</h2>
-        <table cellspacing=0 cellpadding=0>
-            <tr>
-                <td>
-                    <img src="https://unsplash.it/300/200">
-                </td>
-                <td>
-                    <img src="https://unsplash.it/300/200?random">
-                </td>
-                <td>
-                    <img src="https://unsplash.it/300/200?image=11">
-                </td>
 
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <img src="https://unsplash.it/600/200">
-                </td>
-                <td>
-                    <img src="https://unsplash.it/300/200?image=6">
-                </td>
-
-            </tr>
-            <!-- ENd Of Gallery-->
-
-        </table>
+    <div class="actualcontent">.NET
+      <ul>
+        <li>.NET Core</li>
+        <li>C#</li>
+        <li>Entity Framework</li>
+        <li>ASP.NET MVC</li>
+      </ul>
     </div>
-    <hr style="border-top: 1px solid white;">
-    </hr>
-    <div id="newsletter">
-        <table>
-            <tr>
-                <td colspan="2">
-                    <h2> Let's stay connected</h2>
-                </td>
-            </tr>
-            <td><input name=" " type="text" placeholder="E-Mail"></td>
-            <td><a type="submit">Subscribe</a></td>
-        </table>
+
+    <div class="actualcontent">DevOps</div>
+  </div>
+
+  <!-- ================= TECH SKILLS ================= -->
+  <div class="tech-container">
+    <ul>
+      <li>
+        <span>*</span> Java
+        <ul>
+          <li>Spring & Spring Boot</li>
+          <li>Core Java</li>
+          <li>J2EE</li>
+          <li>Apache and other open source Libraries</li>
+        </ul>
+      </li>
+      <li>
+        <span>*</span> .NET
+        <ul>
+          <li>.NET Core and Framework</li>
+          <li>C#</li>
+          <li>F#</li>
+          <li>Enterprise Frameworks</li>
+        </ul>
+      </li>
+    </ul>
+
+    <!-- GitHub Button -->
+    <a href="#contact" class="button github-btn">
+      <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub Logo">
+      GitHub
+    </a>
+  </div>
+
+  <!-- ================= CONTACT ================= -->
+  <div id="contact">
+    <h2>Impressed with my work?</h2>
+    <form method="post" action="server/api">
+      <input type="text" name="First Name" placeholder="Enter your First Name">
+      <input type="text" name="Last Name" placeholder="Enter your Last Name">
+      <textarea placeholder="Enter Your Message"></textarea><br>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <!-- ================= GALLERY ================= -->
+  <div class="gallery">
+    <h2>Here are Samples of My Work</h2>
+    <table cellspacing="0" cellpadding="0">
+      <tr>
+        <td><img src="https://unsplash.it/300/200" alt="work1"></td>
+        <td><img src="https://unsplash.it/300/200?random" alt="work2"></td>
+        <td><img src="https://unsplash.it/300/200?image=11" alt="work3"></td>
+      </tr>
+      <tr>
+        <td colspan="2"><img src="https://unsplash.it/600/200" alt="work4"></td>
+        <td><img src="https://unsplash.it/300/200?image=6" alt="work5"></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ================= MEDIA ================= -->
+  <section class="media">
+    <h2>Check Out My Media</h2>
+    <div class="video-section">
+      <h3>My Introduction Video</h3>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/4jOTGhJ00NI"
+        title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
     </div>
-    <!--End of Gallery-->
 
+    <div class="audio-section">
+      <h3>My Favorite Background Track</h3>
+      <audio controls>
+        <source src="audio/background.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  </section>
 
-    <!--Footer-->
+  <!-- ================= NEWSLETTER ================= -->
+  <div id="newsletter">
+    <h2>Let's Stay Connected</h2>
+    <input type="text" placeholder="E-Mail">
+    <a href="#" class="button">Subscribe</a>
+  </div>
 
-    <footer>
-        <p>Copyright @2025 - All rights are reserved By SK </p>
-    </footer>
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    
+    <p>Copyright ©2025 - All Rights Reserved by SK</p>
+  </footer>
+
+  
+  <script>
+    // Smooth scroll behavior for tab buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = document.querySelector(btn.getAttribute('data-target'));
+        window.scrollTo({
+          top: target.offsetTop - 50,
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+
 </body>
-<!-- Body Section Ends-->
-
 </html>

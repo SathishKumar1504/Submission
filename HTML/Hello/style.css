@@ -6,6 +6,48 @@ body {
 }
 
 
+/* ===== Navigation Bar Styling ===== */
+/* ===== Simple Horizontal Tab Bar ===== */
+.tab-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: #222;
+  padding: 10px 0;
+  position: sticky;   /* stays visible when scrolling */
+  top: 0;
+  z-index: 1000;
+}
+
+/* Tab Buttons */
+.tab-btn {
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover Effect */
+.tab-btn:hover {
+  background-color: #00bcd4;
+  transform: translateY(-2px);
+  color: black;
+}
+
+/* Active/Selected Tab */
+.tab-btn.active {
+  background-color: #00ffcc;
+  color: #000;
+}
+
+
+/* =========================================== */
+
 header,
 section,
 div {
@@ -71,6 +113,11 @@ header h1{
 
 header span {
     color:#0929de8d
+}
+
+h2 span{
+    color:#e81c50;
+    font-size : 50px;
 }
 
 .about p{
@@ -143,4 +190,190 @@ footer p{
     font-size: 12px;
     margin: 0;
     color: #000;
+}
+
+
+.video-section {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 ratio */
+    height: 0;
+    overflow: hidden;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.video-section iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.res{
+    background-color: rgba(98, 193, 89, 0.413);
+    padding: rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px;
+    text-align: center;
+}
+
+.res1{
+    background-color: rgba(98, 193, 89, 0.413);
+    /* padding: rem; */
+    border-radius: 10px;
+    box-shadow: 0 0 10px;
+    text-align: center;
+    display: block;
+}
+
+.lis{
+    background-color: #159ad353;
+    padding-bottom: 10px;
+}
+
+.li1{
+    padding-bottom: 10px;
+    box-align : "right";
+    background-color: #17a6bf;
+    margin :0 auto;
+    width: 170px;
+    height: 46px;
+    line-height: 44px;
+    color:#fff;
+
+    /* transition: /; */
+
+}
+
+.tech-container {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    margin: 0 auto;
+}
+ 
+ 
+.tech-container>ul {
+    list-style: none;
+    padding: 0;
+}
+ 
+ 
+.tech-container>ul>li {
+    display: inline-block;
+    width: 70%;
+    background-color: #d8f3b8;
+    /*border: 2px solid #000;*/
+    border-radius: 20px;
+    padding: 20px 0;
+    margin: 20px 0;
+    position: relative;
+    font-size: 22px;
+    font-weight: bold;
+}
+ 
+li>span {
+    color: green;
+    font-weight: bold;
+    margin-right: 5px;
+}
+ 
+ 
+.tech-container>ul>li>ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px 0;
+    margin: 10px 0 0 0;
+}
+ 
+ 
+.tech-container>ul>li>ul>li {
+    background-color: rgb(209, 232, 252);
+    /*border: 2px solid #000;*/
+    border-radius: 10px;
+    padding: 8px 15px;
+    font-size: 16px;
+    font-weight: normal;
+    color: rgb(42, 0, 133);
+}
+ 
+ 
+.tech-container>ul>li+li {
+    margin-top: 40px;
+}
+ 
+ 
+.tech-container li li:hover {
+    background-color: #ff6b6b;
+    color: white;
+    cursor: pointer;
+}
+ 
+
+
+.boxes{
+    display :flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: space-between;
+}
+
+.wrapper{
+    display: flex;
+    /* flex-direction: row; */
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: space-between;
+
+}
+.actualcontent{
+    border: 2px solid rgb(32, 32, 27);
+    padding: 2px;
+    margin: 2px;
+    width: 30%;
+    flex-wrap: wrap;
+    display: flex;
+
+}
+
+
+
+/* ===== GitHub Button Styling ===== */
+.tech-container .button {
+    display: inline-flex;               /* To align icon + text in one line */
+    align-items: center;                /* Vertically center */
+    justify-content: center;            /* Horizontally center */
+    gap: 10px;                          /* Space between icon and text */
+    background-color: #333;             /* GitHub style dark */
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+/* GitHub icon inside the button */
+.tech-container .button img {
+    width: 24px;
+    height: 24px;
+    filter: invert(1);                  /* Makes white icon if original is black */
+    transition: filter 0.3s ease;
+}
+
+/* Hover effect for the button */
+.tech-container .button:hover {
+    background-color: #6e5494;          /* GitHub purple hover */
+    cursor: pointer;
+}
+
+/* Change GitHub icon color on hover */
+.tech-container .button:hover img {
+    filter: invert(0);                  /* Switch to dark icon on light bg */
 }

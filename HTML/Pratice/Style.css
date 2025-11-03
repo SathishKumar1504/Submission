@@ -19,7 +19,7 @@ p{
     background-color: aliceblue;
     
  } */
- body{
+ /* body{
     font-family: sans-serif;
     display: flex;
     justify-content: center;
@@ -34,7 +34,7 @@ p{
     border-radius: 10px;
     box-shadow: 0 0 10px;
     text-align: center;
- }
+ } */
  /* div {
     align:center;
     align-items: center;
@@ -45,4 +45,30 @@ p{
   margin: 20px;
 } */
 
-bod
+/* div{
+    padding: 15px;
+    border: 2px solid rgb(19, 137, 196);
+    background-color: color(display-p2 1 0 0/.4);
+} */
+
+/* p{
+    padding: 15px;
+    border: 2px solid rgb(15, 76, 199);
+    background-color: color(display-p2 1.6 1.6 0/0.3);
+} */
+
+p{
+    padding: 15px;
+    border: 2px dashed rgb(15, 76, 199);
+    background-color: rgba(208, 255, 0, 0.559);
+    margin: 2px;
+}
+
+div{
+    display: flex;
+    flex-direction:column;
+    margin : 2px;
+}
+
+
+

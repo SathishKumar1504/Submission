@@ -1,0 +1,142 @@
+:root {
+  --gap: 12px;
+  --bg: #0f1720;
+  --ui-bg: rgba(255, 255, 255, 0.05);
+  --ui-border: rgba(255, 255, 255, 0.08);
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(180deg, var(--bg), #081018 120%);
+  color: #fff;
+  padding: 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.title h1 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.info {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+input[type="search"] {
+  background: var(--ui-bg);
+  border: 1px solid var(--ui-border);
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: inherit;
+  min-width: 180px;
+  outline: none;
+}
+
+.badge {
+  background: var(--ui-bg);
+  border: 1px solid var(--ui-border);
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.small {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  align-content: flex-start;
+  align-items: flex-start;
+}
+
+.swatch {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-radius: 10px;
+  overflow: hidden;
+  flex: 1 1 calc(12% - var(--gap));
+  min-width: 100px;
+  height: clamp(80px, 14vh, 160px);
+  position: relative;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.swatch:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
+}
+
+.label {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px;
+  font-size: 0.85rem;
+  backdrop-filter: blur(3px);
+}
+
+.name {
+  font-weight: 600;
+}
+
+.hex {
+  font-size: 0.75rem;
+  opacity: 0.9;
+}
+
+footer {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+/* Responsive layout adjustments */
+@media (max-width: 1200px) {
+  .swatch {
+    flex-basis: calc(16% - var(--gap));
+  }
+}
+
+@media (max-width: 900px) {
+  .swatch {
+    flex-basis: calc(22% - var(--gap));
+  }
+}
+
+@media (max-width: 700px) {
+  .swatch {
+    flex-basis: calc(30% - var(--gap));
+  }
+}
+
+@media (max-width: 480px) {
+  .swatch {
+    flex-basis: calc(45% - var(--gap));
+  }
+}
