@@ -13,15 +13,6 @@ while (i < 5) {
     i++;
 }
 
-#!markdown
-
-let i=0;
-i= i+300-200*4;
-let sum=0;
-let j =1;
-while(j <=100) sum+=j++;
-console.log(sum)
-
 #!javascript
 
 let i=0;
@@ -349,23 +340,23 @@ for (let val of it){
 
 #!javascript
 
-// function gen(n){
-// return {
-//     [Symbol.iterator](){
-//         let i=0;
-//         return {
-//             next(){
-//                 Return {done: (i>n)? true:false, value: i++}    
-//                 if(i < n){
-//                     return {value: i++, done:false};
-//                 }else{
-//                     return {value:undefined, done:true};
-//                 }
-//             }
-//         };
-//     }
-// };
-// }
+function gen(n){
+return {
+    [Symbol.iterator](){
+        let i=0;
+        return {
+            next(){
+                Return {done: (i>n)? true:false, value: i++}    
+                if(i < n){
+                    return {value: i++, done:false};
+                }else{
+                    return {value:undefined, done:true};
+                }
+            }
+        };
+    }
+};
+}
 
 
 function gen(n){
@@ -573,8 +564,3 @@ console.log(reverse("hello"));
 #!markdown
 
 MODULES
-
-#!csharp
-
-import Shape from './shape.js';
-let shape = new Shape("MyShape");

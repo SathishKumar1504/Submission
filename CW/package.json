@@ -1,0 +1,12 @@
+{
+  "name": "js-concept-lab",
+  "version": "1.0.0",
+  "description": "JavaScript Concept Practice Module - Sathish Kumar M",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Sathish Kumar M",
+  "license": "ISC"
+}
