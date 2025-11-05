@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    /* ===== File Layout ===== */
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    /* ===== Environment Settings ===== */
+    "module": "ESNext",              // ✅ modern ESM
+    "target": "ES2020",              // ✅ includes Set, Map, Promise, etc.
+    "lib": ["ES2020", "DOM"],        // ✅ modern features
+    "types": ["node"],
+    
+
+    /* ===== Output Settings ===== */
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    /* ===== Type Checking ===== */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "skipLibCheck": true,
+
+    /* ===== Module Interop ===== */
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* ===== Misc ===== */
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+
+    /* ✅ Fix for "Set can only be iterated" */
+    "downlevelIteration": true
+  },
+  "include": ["src/**/*", "*.ts", "../../CW/nov_5.ts"],
+  "exclude": ["node_modules"]
+}

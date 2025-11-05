@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    /* ===== File Layout ===== */
+    "rootDir": "./",                  
+    "outDir": "./dist",
+
+    /* ===== Environment Settings ===== */
+    "module": "commonjs",              // ✅ works perfectly with Node
+    "target": "ES2020",               
+    "lib": ["ES2020", "DOM"],         
+    "types": ["node"],
+
+    /* ===== Output Settings ===== */
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    /* ===== Type Checking ===== */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "skipLibCheck": true,
+
+    /* ===== Module Interop ===== */
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* ===== Misc ===== */
+    "downlevelIteration": true
+  },
+  "include": ["*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

@@ -62,6 +62,7 @@ try {
   console.log("\n=== Reverse Example ===");
   console.log(reverse([1, 2, 3, 4, 5]));
   console.log(reverse("hello"));
+  console.log(reverse('c'));
 
   console.log("\n=== Map Example ===");
   mapExample();

@@ -1,12 +1,21 @@
 {
-  "name": "js-concept-lab",
+  "name": "myproject",
   "version": "1.0.0",
-  "description": "JavaScript Concept Practice Module - Sathish Kumar M",
-  "main": "index.js",
-  "type": "module",
+  "main": "dist/index.js",
+  "description": "TypeScript Node Project by Sathish Kumar",
+  "author": "Sathish Kumar",
+  "license": "ISC",
   "scripts": {
-    "start": "node index.js"
+    "clean": "rimraf dist",
+    "build": "npm run clean && tsc",
+    "start": "npm run build && node dist/index.js",
+    "dev": "ts-node index.ts"
   },
-  "author": "Sathish Kumar M",
-  "license": "ISC"
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "rimraf": "^6.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "keywords": []
 }
