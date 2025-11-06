@@ -1,4 +1,4 @@
-# JS Concept Lab (Nov 4)
+# JS & TS Concept Lab
 
 A self-contained JavaScript practice project covering:
 - Loops
