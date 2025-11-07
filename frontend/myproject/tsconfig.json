@@ -35,6 +35,6 @@
     /* ✅ Fix for "Set can only be iterated" */
     "downlevelIteration": true
   },
-  "include": ["src/**/*", "*.ts", "../../CW/nov_5.ts"],
+  "include": ["src/**/*", "*.ts"],
   "exclude": ["node_modules"]
 }

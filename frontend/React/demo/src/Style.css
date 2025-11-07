@@ -1,0 +1,27 @@
+
+/*  
+div{
+
+    padding: 15px;
+
+    border: 2px solid black;
+
+    background-color: color(display-p2 1.6 1.6 0 / .4);
+
+} */
+ 
+.card{
+
+    background-color: rgba(21, 143, 224, 0.824);
+
+    padding: 1.5rem;
+    /* height: aut; */
+    border-radius: 10px;
+     /* font-size: calc(10px + 2vmin); */
+    box-shadow: 0 0 10px;
+
+    text-align: center;
+
+}
+
+ 

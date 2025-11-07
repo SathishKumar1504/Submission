@@ -13,7 +13,7 @@ import { stringLength, toUpperCase } from "./module/String.js";
 // ---------------------------------------------------
 // 🔹 Import the TypeScript Concept Module (nov_5.ts)
 // ---------------------------------------------------
-import * as concept from "../../../CW/nov_5.js"; // ✅ must start with './'
+// import * as concept from "../../../CW/nov_5.js"; // ✅ must start with './'
 
 // ===================================================
 // 🧮 MATH & STRING MODULE DEMONSTRATION
@@ -33,7 +33,7 @@ console.log("  Add 5 + 3 =", math.add(5, 3));
 console.log("  Value of PI =", math.PI);
 console.log("  Square of 4 =", math.Calculator.square(4));
 
-
+/* 
 // ===================================================
 // 🧠 TYPESCRIPT CONCEPT MODULE (nov_5.ts)
 // ===================================================
@@ -91,3 +91,6 @@ console.log("  Output:", concept.reverse([1, 2, 3, 4]));
 console.log("\n==================================================");
 console.log("✅ All Concept and Utility Tests Executed Successfully!");
 console.log("==================================================\n");
+
+
+*/
