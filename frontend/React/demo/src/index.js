@@ -5,6 +5,8 @@ import App from './App';
 import TestPage from './page';
 import reportWebVitals from './reportWebVitals';
 import Checklist from './Checklist';
+import UserForm from './UserForm';
+import ClockWithColorInfo from './ColorfulClock';
 
 import MyFormComponent from './MyformComponent';
 
@@ -28,7 +30,10 @@ test.render(
   <React.StrictMode>
     <TestPage/>
       <App/>
+      <ClockWithColorInfo/>
+      <UserForm  />
       
+    
   </React.StrictMode>
 
 )
