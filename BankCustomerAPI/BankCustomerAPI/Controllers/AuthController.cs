@@ -41,7 +41,7 @@ namespace BankCustomerAPI.Controllers
                 return Unauthorized("Invalid credentials");
 
             var token = _jwtTokenService.GenerateToken(user.Email, user.UserType);
-            return Ok(new { token, user.Email, user.UserType });
+            return Ok(new { token});
         }
     }
 

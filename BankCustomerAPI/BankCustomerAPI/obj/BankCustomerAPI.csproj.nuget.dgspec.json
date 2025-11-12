@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\C# Training\\Project\\Submission\\BankCustomerAPI\\BankCustomerAPI\\BankCustomerAPI.csproj": {}
+    "D:\\CSharp_and_React_Training\\Project\\Submission\\BankCustomerAPI\\BankCustomerAPI\\BankCustomerAPI.csproj": {}
   },
   "projects": {
-    "D:\\C# Training\\Project\\Submission\\BankCustomerAPI\\BankCustomerAPI\\BankCustomerAPI.csproj": {
+    "D:\\CSharp_and_React_Training\\Project\\Submission\\BankCustomerAPI\\BankCustomerAPI\\BankCustomerAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\C# Training\\Project\\Submission\\BankCustomerAPI\\BankCustomerAPI\\BankCustomerAPI.csproj",
+        "projectUniqueName": "D:\\CSharp_and_React_Training\\Project\\Submission\\BankCustomerAPI\\BankCustomerAPI\\BankCustomerAPI.csproj",
         "projectName": "BankCustomerAPI",
-        "projectPath": "D:\\C# Training\\Project\\Submission\\BankCustomerAPI\\BankCustomerAPI\\BankCustomerAPI.csproj",
+        "projectPath": "D:\\CSharp_and_React_Training\\Project\\Submission\\BankCustomerAPI\\BankCustomerAPI\\BankCustomerAPI.csproj",
         "packagesPath": "C:\\Users\\sathishkumar.m\\.nuget\\packages\\",
-        "outputPath": "D:\\C# Training\\Project\\Submission\\BankCustomerAPI\\BankCustomerAPI\\obj\\",
+        "outputPath": "D:\\CSharp_and_React_Training\\Project\\Submission\\BankCustomerAPI\\BankCustomerAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

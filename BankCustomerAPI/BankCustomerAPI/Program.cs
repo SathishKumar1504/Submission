@@ -48,6 +48,17 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// -------------------- CORS Policy --------------------
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 // -------------------- Controllers --------------------
 builder.Services.AddControllers().AddNewtonsoftJson();
 
@@ -87,6 +98,9 @@ var app = builder.Build();
 // -------------------- Middleware --------------------
 app.UseHttpsRedirection();
 
+// ✅ Enable CORS before authentication
+app.UseCors("AllowAll");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -102,15 +116,12 @@ if (app.Environment.IsDevelopment())
 
 app.MapControllers();
 
-
-// -------------------- Runtime Seeding (COMMENTED OUT) --------------------
+// -------------------- Runtime Seeding (optional) --------------------
 /*
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<TrainingDbContext>();
-
-    context.Database.EnsureCreated(); // Creates DB if missing
-
+    context.Database.EnsureCreated();
     if (!context.Users.Any())
     {
         var users = new List<User>
@@ -124,39 +135,8 @@ using (var scope = app.Services.CreateScope())
                 Status = "active",
                 UserType = "Admin",
                 CreatedAt = DateTime.UtcNow
-            },
-            new User
-            {
-                Username = "Manager User",
-                Email = "manager@bank.com",
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword("manager123"),
-                Phone = "9000000002",
-                Status = "active",
-                UserType = "Manager",
-                CreatedAt = DateTime.UtcNow
-            },
-            new User
-            {
-                Username = "Employee User",
-                Email = "employee@bank.com",
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword("employee123"),
-                Phone = "9000000003",
-                Status = "active",
-                UserType = "Employee",
-                CreatedAt = DateTime.UtcNow
-            },
-            new User
-            {
-                Username = "Customer User",
-                Email = "customer@bank.com",
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword("customer123"),
-                Phone = "9000000004",
-                Status = "active",
-                UserType = "Customer",
-                CreatedAt = DateTime.UtcNow
             }
         };
-
         context.Users.AddRange(users);
         context.SaveChanges();
         Console.WriteLine("✅ Default users seeded successfully.");

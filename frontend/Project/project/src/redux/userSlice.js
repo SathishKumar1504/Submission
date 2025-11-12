@@ -1,39 +1,85 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { jwtDecode } from 'jwt-decode';
 
-const initialState = {
-  username: '',
-  email: '',
-  password: '',
-  submitted: false,
-  successMessage: '',
-};
+export const loginUser = createAsyncThunk(
+  'user/loginUser',
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      const response = await fetch('https://localhost:7092/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
 
+      if (!response.ok) {
+        const message = await response.text();
+        throw new Error(message || 'Login failed');
+      }
+
+      const data = await response.json(); // { token: "..." }
+      console.log('✅ Token received:', data.token);
+
+      // ✅ Save token in localStorage
+      if (data.token) {
+        localStorage.setItem('authToken', data.token);
+      }
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 const userSlice = createSlice({
   name: 'user',
-  initialState,
+  initialState: {
+    email: '',
+    password: '',
+    isLoggedIn: !!localStorage.getItem('authToken'),
+    token: localStorage.getItem('authToken') || null,
+    decodedToken: null, // ✅ new field
+    loading: false,
+    error: null,
+    successMessage: '',
+  },
   reducers: {
-    // Dynamically update any input field
-    setField: (state, action) => {
-      state[action.payload.field] = action.payload.value;
+    logout: (state) => {
+      state.isLoggedIn = false;
+      state.token = null;
+      state.decodedToken = null;
+      localStorage.removeItem('authToken');
+      state.successMessage = '👋 Logged out successfully!';
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.isLoggedIn = true;
+        state.token = action.payload.token;
 
-    // Handle form submission
-    submitForm: (state) => {
-      state.submitted = true;
-      state.successMessage = '✅ Form submitted successfully!';
-    },
+        // ✅ Decode JWT token
+        try {
+          const decoded = jwtDecode(action.payload.token);
+          console.log('🔍 Decoded Token:', decoded);
+          state.decodedToken = decoded;
+        } catch (err) {
+          console.error('❌ Error decoding token:', err);
+        }
 
-    // Reset entire form
-    resetForm: (state) => {
-      state.username = '';
-      state.email = '';
-      state.password = '';
-      state.submitted = false;
-      state.successMessage = '🧹 Form reset successfully!';
-    },
+        state.successMessage = '✅ Login successful!';
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Login failed';
+      });
   },
 });
 
-export const { setField, submitForm, resetForm } = userSlice.actions;
+export const { logout } = userSlice.actions;
 export default userSlice.reducer;
