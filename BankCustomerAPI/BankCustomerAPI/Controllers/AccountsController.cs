@@ -45,7 +45,7 @@ namespace BankCustomerAPI.Controllers
             var accounts = await _db.Accounts
                 .Where(a => a.UserId == userId && a.Status == "active")
                 .Include(a => a.Branch)
-                    .ThenInclude(b => b.Bank)
+                    .ThenInclude(b => b!.Bank)
                 .ToListAsync();
 
             return Ok(new { success = true, accounts });

@@ -36,7 +36,7 @@ namespace BankCustomerAPI.Controllers
 
             var accounts = await _context.Accounts
                 .Where(a => a.UserId == user.UserId)
-                .Include(a => a.Branch).ThenInclude(b => b.Bank)
+                .Include(a => a.Branch).ThenInclude(b => b!.Bank)
                 .Select(a => new
                 {
                     a.AccountId,
@@ -47,12 +47,12 @@ namespace BankCustomerAPI.Controllers
                     a.CreatedDate,
                     Branch = new
                     {
-                        a.Branch.BranchId,
+                        a.Branch!.BranchId,
                         a.Branch.BranchName,
                         Bank = new
                         {
-                            a.Branch.Bank.BankId,
-                            a.Branch.Bank.BankName
+                            a.Branch!.Bank!.BankId,
+                            a.Branch!.Bank!.BankName
                         }
                     }
                 })
@@ -154,8 +154,8 @@ namespace BankCustomerAPI.Controllers
                     t.TransDate,
                     Account = new
                     {
-                        t.Account.AccountId,
-                        t.Account.AccountNumber
+                        t.Account!.AccountId,
+                        t.Account!.AccountNumber
                     }
                 })
                 .ToListAsync();
