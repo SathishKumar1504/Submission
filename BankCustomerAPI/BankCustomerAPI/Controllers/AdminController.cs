@@ -19,7 +19,8 @@ namespace BankCustomerAPI.Controllers
         }
 
         // GET: /api/admin/users
-        [HttpGet("users")]
+        //[HttpGet("users")]
+        [HttpGet("all-users")]
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await _context.Users.ToListAsync();

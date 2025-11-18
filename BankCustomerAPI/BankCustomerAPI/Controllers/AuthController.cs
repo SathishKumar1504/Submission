@@ -19,29 +19,87 @@ namespace BankCustomerAPI.Controllers
             _jwtTokenService = jwtTokenService;
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] User user)
-        {
-            if (await _context.Users.AnyAsync(u => u.Email == user.Email))
-                return Conflict("Email already exists");
-
-            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
-            user.CreatedAt = DateTime.Now;
-
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-            return Ok("User registered successfully");
-        }
-
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
-            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
-                return Unauthorized("Invalid credentials");
 
-            var token = _jwtTokenService.GenerateToken(user.Email, user.UserType);
-            return Ok(new { token});
+            if (user == null)
+                return Unauthorized(new { message = "Invalid credentials" });
+
+            if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+                return Unauthorized(new { message = "Invalid credentials" });
+
+            if (user.Status?.ToLower() == "deleted")
+                return StatusCode(403, new { message = "Your account has been deleted. Please contact admin." });
+
+            if (user.Status?.ToLower() == "inactive")
+                return StatusCode(403, new { message = "Your account is inactive. Please contact admin." });
+
+            // 🔥 New Access Token
+            var accessToken = _jwtTokenService.GenerateToken(
+                user.Email,
+                user.UserType,
+                user.Username
+            );
+
+            // 🔥 New Refresh Token
+            var refreshToken = _jwtTokenService.GenerateRefreshToken();
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                token = accessToken,         // 🔹 Same as before
+                refreshToken = refreshToken, // 🔹 NEW
+                username = user.Username,
+                role = user.UserType,
+                expiresIn = 900,             // 15 min
+                message = "Login successful"
+            });
+        }
+
+
+        // ⭐ NEW: REFRESH ENDPOINT
+        [HttpPost("refresh")]
+        public async Task<IActionResult> Refresh([FromBody] RefreshRequest request)
+        {
+            if (string.IsNullOrEmpty(request.RefreshToken))
+                return BadRequest(new { message = "Refresh token is required" });
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.RefreshToken == request.RefreshToken);
+
+            if (user == null)
+                return Unauthorized(new { message = "Invalid refresh token" });
+
+            if (!user.RefreshTokenExpiryTime.HasValue || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+                return Unauthorized(new { message = "Refresh token expired" });
+
+            // 🔥 ROTATE TOKEN (security best practice)
+            var newAccessToken = _jwtTokenService.GenerateToken(
+                user.Email,
+                user.UserType,
+                user.Username
+            );
+
+            var newRefreshToken = _jwtTokenService.GenerateRefreshToken();
+
+            user.RefreshToken = newRefreshToken;
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                token = newAccessToken,
+                refreshToken = newRefreshToken,
+                username = user.Username,
+                role = user.UserType,
+                expiresIn = 900,
+                message = "Token refreshed"
+            });
         }
     }
 
@@ -49,5 +107,10 @@ namespace BankCustomerAPI.Controllers
     {
         public string Email { get; set; } = "";
         public string Password { get; set; } = "";
+    }
+
+    public class RefreshRequest
+    {
+        public string RefreshToken { get; set; } = "";
     }
 }

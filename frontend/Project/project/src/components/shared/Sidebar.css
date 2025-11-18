@@ -1,0 +1,228 @@
+/* ============================================
+   ROYAL BLUE PRO SIDEBAR THEME (UPGRADED)
+============================================ */
+
+.sidebar-pro {
+  width: 240px;
+  height: 100vh;
+
+  /* Premium gradient background */
+  background: linear-gradient(180deg, #1e2a47, #233256, #1b2942);
+
+  backdrop-filter: blur(8px);
+  border-right: 1px solid rgba(255,255,255,0.12);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 20px 15px;
+
+  display: flex;
+  flex-direction: column;
+
+  transition: width 0.3s ease;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+/* Hide scrollbar */
+.sidebar-pro::-webkit-scrollbar {
+  width: 0;
+}
+.sidebar-pro {
+  scrollbar-width: none;
+}
+
+/* COLLAPSED MODE */
+.sidebar-pro.collapsed {
+  width: 80px;
+}
+
+/* ============================================
+   HEADER
+============================================ */
+.sidebar-header-pro {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #ffffff;
+}
+
+.brand-icon {
+  font-size: 28px;
+  filter: drop-shadow(0 0 6px #60a5fa);
+}
+
+.brand-text {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.toggle-btn {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* ============================================
+   PROFILE CARD
+============================================ */
+.profile-card {
+  margin: 22px 0;
+  padding: 12px;
+
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(6px);
+
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  box-shadow: 0 0 10px rgba(59,130,246,0.3);
+}
+
+.avatar {
+  font-size: 28px;
+}
+
+.profile-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.profile-role {
+  font-size: 13px;
+  color: #cbd5e1;
+}
+
+/* ============================================
+   MENU LINKS
+============================================ */
+.sidebar-menu-pro {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar-link-pro {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 12px 14px;
+  border-radius: 10px;
+
+  color: #e4e8f3;
+  text-decoration: none;
+
+  transition: 0.3s ease;
+}
+
+/* Hover Glow */
+.sidebar-link-pro:hover {
+  background: rgba(59,130,246,0.25);
+  transform: translateX(6px);
+  box-shadow: 0 0 12px rgba(59,130,246,0.6);
+}
+
+/* Active (Electric Blue) */
+.sidebar-link-pro.active {
+  background: #3b82f6;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 0 15px rgba(59,130,246,0.9);
+}
+
+.icon {
+  font-size: 22px;
+}
+
+/* ============================================
+   LOGOUT BUTTON (UPGRADED)
+============================================ */
+.sidebar-footer-pro {
+  margin-top: auto;
+  padding-top: 30px;
+}
+/* ============================================
+   PREMIUM LOGOUT BUTTON (UNIQUE DESIGN)
+============================================ */
+.sidebar-footer-pro {
+  margin-top: auto;
+  padding-top: 40px;
+}
+
+.logout-pro {
+  width: 100%;
+  padding: 14px 18px;
+
+  /* 🔥 DIFFERENT PREMIUM DESIGN */
+  background: linear-gradient(135deg, #ff4b4b, #b81a1a);
+  color: white;
+
+  border: none;
+  border-radius: 50px;           /* <-- pill shape (different from others) */
+  font-size: 17px;
+  font-weight: 700;
+
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;       /* center everything */
+  gap: 10px;
+
+  box-shadow: 0 5px 20px rgba(255, 60, 60, 0.5);
+  transition: 0.25s ease;
+
+  letter-spacing: 0.5px;         /* premium look */
+}
+
+.logout-pro:hover {
+  background: linear-gradient(135deg, #d62828, #8b0f0f);
+  transform: translateY(-3px);   /* floating effect */
+  box-shadow: 0 8px 25px rgba(255, 70, 70, 0.65);
+}
+
+.logout-pro:active {
+  transform: scale(0.97);
+}
+
+/* ============================================
+   PAGE SHIFT
+============================================ */
+.page-with-sidebar {
+  margin-left: 240px;
+  padding: 30px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar-pro.collapsed ~ .page-with-sidebar {
+  margin-left: 80px;
+}
+
+/* ============================================
+   RESPONSIVE
+============================================ */
+@media (max-width: 768px) {
+  .sidebar-pro {
+    width: 200px;
+  }
+
+  .sidebar-pro.collapsed {
+    width: 70px;
+  }
+
+  .page-with-sidebar {
+    margin-left: 200px;
+  }
+
+  .sidebar-pro.collapsed ~ .page-with-sidebar {
+    margin-left: 70px;
+  }
+}

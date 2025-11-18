@@ -1,0 +1,115 @@
+/* ============================
+   LOGIN WRAPPER (FIXED CENTER)
+=============================== */
+.super-login-wrapper {
+  height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;      /* 🔥 prevent moving */
+  margin: 0;
+  padding: 0;
+
+  background: linear-gradient(135deg, #4c6ef5, #5b8ff0);
+}
+
+/* ============================
+   CARD
+=============================== */
+.super-login-card {
+  width: 100%;
+  max-width: 360px;
+
+  background: #fff;
+  border-radius: 16px;
+  padding: 40px 32px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  text-align: center;
+
+  position: relative;
+}
+
+/* Logo + title */
+.super-logo {
+  font-size: 50px;
+  margin-bottom: 5px;
+}
+
+.super-title {
+  color: #2c3e50;
+  margin: 5px 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.super-subtitle {
+  color: #5f6d7a;
+  margin-bottom: 25px;
+}
+
+/* Inputs */
+.super-input-group {
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.super-input-group label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #2c3e50;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.super-input-group input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background: #f5f7ff;
+  font-size: 15px;
+}
+
+.super-input-group input:focus {
+  border-color: #4c6ef5;
+  background: #fff;
+  outline: none;
+}
+
+/* Button */
+.super-login-btn {
+  width: 100%;
+  padding: 12px;
+  background: #4c6ef5;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 17px;
+  cursor: pointer;
+}
+.super-login-btn:hover {
+  background: #3a56d4;
+}
+
+.super-error {
+  color: red;
+  margin-top: 15px;
+}
+
+.super-footer {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #6c7b88;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .super-login-card {
+    max-width: 90%;
+    padding: 28px 20px;
+  }
+}

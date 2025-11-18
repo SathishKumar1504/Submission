@@ -1,9 +1,15 @@
 {
   "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.5.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "chart.js": "^4.5.1",
     "jwt-decode": "^4.0.0",
+    "react-chartjs-2": "^5.3.1",
     "react-popup": "^0.11.2"
   }
 }

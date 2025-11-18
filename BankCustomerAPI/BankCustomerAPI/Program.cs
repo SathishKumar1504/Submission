@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json; // <-- added
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -53,14 +54,25 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.WithOrigins("http://localhost:3000")
-              .AllowAnyMethod()
-              .AllowAnyHeader();
+        policy.WithOrigins(
+          "http://localhost:3000",
+          "https://localhost:3000"
+      )
+            .AllowAnyMethod()
+              .AllowAnyHeader()
+         .AllowCredentials();
     });
 });
 
-// -------------------- Controllers --------------------
-builder.Services.AddControllers().AddNewtonsoftJson();
+// -------------------- Controllers (Newtonsoft with loop handling) --------------------
+// IMPORTANT: configure ReferenceLoopHandling.Ignore to avoid circular JSON errors
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+        // optional: omit nulls if you want
+        // options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+    });
 
 // -------------------- Swagger Setup --------------------
 builder.Services.AddSwaggerGen(c =>
@@ -98,7 +110,7 @@ var app = builder.Build();
 // -------------------- Middleware --------------------
 app.UseHttpsRedirection();
 
-// ✅ Enable CORS before authentication
+// Enable CORS BEFORE authentication/authorization
 app.UseCors("AllowAll");
 
 app.UseAuthentication();
@@ -115,33 +127,5 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapControllers();
-
-// -------------------- Runtime Seeding (optional) --------------------
-/*
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<TrainingDbContext>();
-    context.Database.EnsureCreated();
-    if (!context.Users.Any())
-    {
-        var users = new List<User>
-        {
-            new User
-            {
-                Username = "Super Admin",
-                Email = "admin@bank.com",
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin123"),
-                Phone = "9000000001",
-                Status = "active",
-                UserType = "Admin",
-                CreatedAt = DateTime.UtcNow
-            }
-        };
-        context.Users.AddRange(users);
-        context.SaveChanges();
-        Console.WriteLine("✅ Default users seeded successfully.");
-    }
-}
-*/
 
 app.Run();

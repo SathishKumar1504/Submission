@@ -1,28 +1,39 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { jwtDecode } from 'jwt-decode';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { jwtDecode } from "jwt-decode";
 
+// ===========================
+// LOGIN THUNK
+// ===========================
 export const loginUser = createAsyncThunk(
-  'user/loginUser',
+  "user/loginUser",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await fetch('https://localhost:7092/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("https://localhost:7092/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
       if (!response.ok) {
-        const message = await response.text();
-        throw new Error(message || 'Login failed');
+        let msg = "Login failed";
+        const text = await response.text();
+
+        try {
+          const json = JSON.parse(text);
+          msg = json.message || json.detail || json.title || text;
+        } catch {
+          msg = text;
+        }
+
+        return rejectWithValue(msg);
       }
 
-      const data = await response.json(); // { token: "..." }
-      console.log('✅ Token received:', data.token);
+      const data = await response.json();
 
-      // ✅ Save token in localStorage
-      if (data.token) {
-        localStorage.setItem('authToken', data.token);
-      }
+      // Save to localStorage
+      if (data.token) localStorage.setItem("token", data.token);
+      if (data.refreshToken)
+        localStorage.setItem("refreshToken", data.refreshToken);
 
       return data;
     } catch (error) {
@@ -31,55 +42,75 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+// ===========================
+// SLICE
+// ===========================
 const userSlice = createSlice({
-  name: 'user',
+  name: "user",
+
   initialState: {
-    email: '',
-    password: '',
-    isLoggedIn: !!localStorage.getItem('authToken'),
-    token: localStorage.getItem('authToken') || null,
-    decodedToken: null, // ✅ new field
+    isLoggedIn: !!localStorage.getItem("token"),
+    token: localStorage.getItem("token") || null,
+    refreshToken: localStorage.getItem("refreshToken") || null,
+    decodedToken: null,
     loading: false,
     error: null,
-    successMessage: '',
   },
+
   reducers: {
     logout: (state) => {
       state.isLoggedIn = false;
       state.token = null;
+      state.refreshToken = null;
       state.decodedToken = null;
-      localStorage.removeItem('authToken');
-      state.successMessage = '👋 Logged out successfully!';
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("refreshToken");
+    },
+
+    // ⭐ Used by API auto-refresh
+    setTokens: (state, action) => {
+      const { token, refreshToken } = action.payload;
+
+      state.token = token;
+      state.refreshToken = refreshToken;
+      state.isLoggedIn = true;
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("refreshToken", refreshToken);
     },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
+
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.isLoggedIn = true;
+
         state.token = action.payload.token;
+        state.refreshToken = action.payload.refreshToken;
 
-        // ✅ Decode JWT token
+        localStorage.setItem("token", action.payload.token);
+        localStorage.setItem("refreshToken", action.payload.refreshToken);
+
         try {
-          const decoded = jwtDecode(action.payload.token);
-          console.log('🔍 Decoded Token:', decoded);
-          state.decodedToken = decoded;
-        } catch (err) {
-          console.error('❌ Error decoding token:', err);
+          state.decodedToken = jwtDecode(action.payload.token);
+        } catch {
+          state.decodedToken = null;
         }
-
-        state.successMessage = '✅ Login successful!';
       })
+
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || 'Login failed';
+        state.error = action.payload || "Login failed";
       });
   },
 });
 
-export const { logout } = userSlice.actions;
+export const { logout, setTokens } = userSlice.actions;
 export default userSlice.reducer;
