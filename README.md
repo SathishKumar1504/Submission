@@ -155,55 +155,16 @@ Frontend runs at: **[http://localhost:3000](http://localhost:3000)**
 
 ## 🖼 Screenshots
 
-Screenshots for the application (already renamed to clean kebab-case filenames).
+A modern, clean **screenshot gallery** displayed in a 3‑column grid layout using Markdown tables.
 
-### 🔹 Login Page
+### 📸 Gallery
 
-![Login Page](screenshots/login-page.png)
-
-### 🔹 Guest Homepage
-
-![Guest Homepage](screenshots/guest-homepage.png)
-
-### 🔹 User Homepage
-
-![User Homepage](screenshots/user-homepage.png)
-
-### 🔹 User Account Dashboard
-
-![User Account Dashboard](screenshots/user-account-dashboard.png)
-
-### 🔹 User Transaction History
-
-![User Transaction History](screenshots/user-transaction-history.png)
-
-### 🔹 Admin Homepage
-
-![Admin Homepage](screenshots/admin-homepage.png)
-
-### 🔹 Admin Dashboard
-
-![Admin Dashboard](screenshots/admin-dashboard.png)
-
-### 🔹 Admin User Management
-
-![Admin User Management](screenshots/admin-user-management.png)
-
-### 🔹 Bank & Branch Management
-
-![Bank & Branch Management](screenshots/bank-branch-management.png)
-
-### 🔹 Contact Page
-
-![Contact Page](screenshots/contact-page.png)
-
-### 🔹 Contact Support
-
-![Contact Support](screenshots/contact-support.png)
-
-### 🔹 About Page
-
-![About Page](screenshots/about-page.png)
+|                                                                                   |                                                                                        |                                                                                          |
+| --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| ![Login](screenshots/login-page.png) <br> **Login Page**                          | ![Guest](screenshots/guest-homepage.png) <br> **Guest Homepage**                       | ![User Home](screenshots/user-homepage.png) <br> **User Homepage**                       |
+| ![User Dashboard](screenshots/user-account-dashboard.png) <br> **User Dashboard** | ![Transactions](screenshots/user-transaction-history.png) <br> **Transaction History** | ![Admin Home](screenshots/admin-homepage.png) <br> **Admin Homepage**                    |
+| ![Admin Dashboard](screenshots/admin-dashboard.png) <br> **Admin Dashboard**      | ![Admin Users](screenshots/admin-user-management.png) <br> **User Management**         | ![Bank Branch](screenshots/bank-branch-management.png) <br> **Bank & Branch Management** |
+| ![Contact](screenshots/contact-page.png) <br> **Contact Page**                    | ![Support](screenshots/contact-support.png) <br> **Support Page**                      | ![About](screenshots/about-page.png) <br> **About Page**                                 |
 
 ---
 
