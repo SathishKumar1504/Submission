@@ -153,95 +153,57 @@ Frontend runs at: **[http://localhost:3000](http://localhost:3000)**
 
 ---
 
-## 🎬 GIF Demo
-
-Show a quick walk-through of your application using a demo GIF.
-
-> Add your demo GIF as: `screenshots/demo.gif`
-
-![Demo](screenshots/demo.gif)
-
----
-
 ## 🖼 Screenshots
 
-A modern screenshot section using **card‑style layout** with clear captions under each image.
+Screenshots for the application (already renamed to clean kebab-case filenames).
 
-### 📸 Gallery (Card Style)
+### 🔹 Login Page
 
-<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+![Login Page](screenshots/login-page.png)
 
-<div style="width: 30%; text-align: center;">
-<img src="screenshots/login-page.png" style="width:100%; border-radius:10px;" />
-<p><strong>Login Page</strong></p>
-</div>
+### 🔹 Guest Homepage
 
-<div style="width: 30%; text-align: center;">
-<img src="screenshots/guest-homepage.png" style="width:100%; border-radius:10px;" />
-<p><strong>Guest Homepage</strong></p>
-</div>
+![Guest Homepage](screenshots/guest-homepage.png)
 
-<div style="width: 30%; text-align: center;">
-<img src="screenshots/user-homepage.png" style="width:100%; border-radius:10px;" />
-<p><strong>User Homepage</strong></p>
-</div>
+### 🔹 User Homepage
 
-<div style="width: 30%; text-align: center;">
-<img src="screenshots/user-account-dashboard.png" style="width:100%; border-radius:10px;" />
-<p><strong>User Dashboard</strong></p>
-</div>
+![User Homepage](screenshots/user-homepage.png)
 
-<div style="width: 30%; text-align: center;">
-<img src="screenshots/user-transaction-history.png" style="width:100%; border-radius:10px;" />
-<p><strong>Transaction History</strong></p>
-</div>
+### 🔹 User Account Dashboard
 
-<div style="width: 30%; text-align: center;">
-<img src="screenshots/admin-homepage.png" style="width:100%; border-radius:10px;" />
-<p><strong>Admin Homepage</strong></p>
-</div>
+![User Account Dashboard](screenshots/user-account-dashboard.png)
 
-<div style="width: 30%; text-align: center;">
-<img src="screenshots/admin-dashboard.png" style="width:100%; border-radius:10px;" />
-<p><strong>Admin Dashboard</strong></p>
-</div>
+### 🔹 User Transaction History
 
-<div style="width: 30%; text-align: center;">
-<img src="screenshots/admin-user-management.png" style="width:100%; border-radius:10px;" />
-<p><strong>User Management</strong></p>
-</div>
+![User Transaction History](screenshots/user-transaction-history.png)
 
-<div style="width: 30%; text-align: center;">
-<img src="screenshots/bank-branch-management.png" style="width:100%; border-radius:10px;" />
-<p><strong>Bank & Branch Management</strong></p>
-</div>
+### 🔹 Admin Homepage
 
-<div style="width: 30%; text-align: center;">
-<img src="screenshots/contact-page.png" style="width:100%; border-radius:10px;" />
-<p><strong>Contact Page</strong></p>
-</div>
+![Admin Homepage](screenshots/admin-homepage.png)
 
-<div style="width: 30%; text-align: center;">
-<img src="screenshots/contact-support.png" style="width:100%; border-radius:10px;" />
-<p><strong>Support Page</strong></p>
-</div>
+### 🔹 Admin Dashboard
 
-<div style="width: 30%; text-align: center;">
-<img src="screenshots/about-page.png" style="width:100%; border-radius:10px;" />
-<p><strong>About Page</strong></p>
-</div>
+![Admin Dashboard](screenshots/admin-dashboard.png)
 
-</div>
+### 🔹 Admin User Management
 
----
+![Admin User Management](screenshots/admin-user-management.png)
 
-## 🧪 Running Tests
+### 🔹 Bank & Branch Management
 
-React Testing Library:
+![Bank & Branch Management](screenshots/bank-branch-management.png)
 
-```bash
-npm test
-```
+### 🔹 Contact Page
+
+![Contact Page](screenshots/contact-page.png)
+
+### 🔹 Contact Support
+
+![Contact Support](screenshots/contact-support.png)
+
+### 🔹 About Page
+
+![About Page](screenshots/about-page.png)
 
 ---
 
@@ -262,3 +224,7 @@ npm test
 * JWT + Refresh Token
 
 ---
+
+## ❤️ Author
+
+Developed by **Sathish Kumar** — Training Project / Bank Management System.
