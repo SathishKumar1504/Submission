@@ -213,7 +213,6 @@ Screenshots for the application (already renamed to clean kebab-case filenames).
 
 * React 18
 * Redux Toolkit
-* Axios
 * CSS Modules
 
 ### Backend
