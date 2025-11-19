@@ -153,6 +153,16 @@ Frontend runs at: **[http://localhost:3000](http://localhost:3000)**
 
 ---
 
+## 🎬 GIF Demo
+
+Show a quick walk-through of your application using a demo GIF.
+
+> Add your demo GIF as: `screenshots/demo.gif`
+
+![Demo](screenshots/demo.gif)
+
+---
+
 ## 🖼 Screenshots
 
 A modern, clean **screenshot gallery** displayed in a 3‑column grid layout using Markdown tables.
@@ -195,13 +205,3 @@ npm test
 * JWT + Refresh Token
 
 ---
-
-## 📜 License
-
-MIT
-
----
-
-## ❤️ Author
-
-Developed by **Sathish Kumar** — Training Project / Bank Management System.
