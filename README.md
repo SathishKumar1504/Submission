@@ -165,16 +165,73 @@ Show a quick walk-through of your application using a demo GIF.
 
 ## 🖼 Screenshots
 
-A modern, clean **screenshot gallery** displayed in a 3‑column grid layout using Markdown tables.
+A modern screenshot section using **card‑style layout** with clear captions under each image.
 
-### 📸 Gallery
+### 📸 Gallery (Card Style)
 
-|                                                                                   |                                                                                        |                                                                                          |
-| --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| ![Login](screenshots/login-page.png) <br> **Login Page**                          | ![Guest](screenshots/guest-homepage.png) <br> **Guest Homepage**                       | ![User Home](screenshots/user-homepage.png) <br> **User Homepage**                       |
-| ![User Dashboard](screenshots/user-account-dashboard.png) <br> **User Dashboard** | ![Transactions](screenshots/user-transaction-history.png) <br> **Transaction History** | ![Admin Home](screenshots/admin-homepage.png) <br> **Admin Homepage**                    |
-| ![Admin Dashboard](screenshots/admin-dashboard.png) <br> **Admin Dashboard**      | ![Admin Users](screenshots/admin-user-management.png) <br> **User Management**         | ![Bank Branch](screenshots/bank-branch-management.png) <br> **Bank & Branch Management** |
-| ![Contact](screenshots/contact-page.png) <br> **Contact Page**                    | ![Support](screenshots/contact-support.png) <br> **Support Page**                      | ![About](screenshots/about-page.png) <br> **About Page**                                 |
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+
+<div style="width: 30%; text-align: center;">
+<img src="screenshots/login-page.png" style="width:100%; border-radius:10px;" />
+<p><strong>Login Page</strong></p>
+</div>
+
+<div style="width: 30%; text-align: center;">
+<img src="screenshots/guest-homepage.png" style="width:100%; border-radius:10px;" />
+<p><strong>Guest Homepage</strong></p>
+</div>
+
+<div style="width: 30%; text-align: center;">
+<img src="screenshots/user-homepage.png" style="width:100%; border-radius:10px;" />
+<p><strong>User Homepage</strong></p>
+</div>
+
+<div style="width: 30%; text-align: center;">
+<img src="screenshots/user-account-dashboard.png" style="width:100%; border-radius:10px;" />
+<p><strong>User Dashboard</strong></p>
+</div>
+
+<div style="width: 30%; text-align: center;">
+<img src="screenshots/user-transaction-history.png" style="width:100%; border-radius:10px;" />
+<p><strong>Transaction History</strong></p>
+</div>
+
+<div style="width: 30%; text-align: center;">
+<img src="screenshots/admin-homepage.png" style="width:100%; border-radius:10px;" />
+<p><strong>Admin Homepage</strong></p>
+</div>
+
+<div style="width: 30%; text-align: center;">
+<img src="screenshots/admin-dashboard.png" style="width:100%; border-radius:10px;" />
+<p><strong>Admin Dashboard</strong></p>
+</div>
+
+<div style="width: 30%; text-align: center;">
+<img src="screenshots/admin-user-management.png" style="width:100%; border-radius:10px;" />
+<p><strong>User Management</strong></p>
+</div>
+
+<div style="width: 30%; text-align: center;">
+<img src="screenshots/bank-branch-management.png" style="width:100%; border-radius:10px;" />
+<p><strong>Bank & Branch Management</strong></p>
+</div>
+
+<div style="width: 30%; text-align: center;">
+<img src="screenshots/contact-page.png" style="width:100%; border-radius:10px;" />
+<p><strong>Contact Page</strong></p>
+</div>
+
+<div style="width: 30%; text-align: center;">
+<img src="screenshots/contact-support.png" style="width:100%; border-radius:10px;" />
+<p><strong>Support Page</strong></p>
+</div>
+
+<div style="width: 30%; text-align: center;">
+<img src="screenshots/about-page.png" style="width:100%; border-radius:10px;" />
+<p><strong>About Page</strong></p>
+</div>
+
+</div>
 
 ---
 
